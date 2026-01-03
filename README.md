@@ -112,3 +112,73 @@ It provides **context-aware, human-like code reviews** directly on GitHub, along
 ```bash
 git clone https://github.com/your-username/codehopper.git
 cd codehopper
+```
+### 2️⃣ Install dependencies
+```bash
+pnpm install
+# or
+npm install
+```
+### 3️⃣ Environment Variables
+Create a .env.local file:
+```bash
+# App
+NEXT_PUBLIC_APP_BASE_URL=http://localhost:3000
+
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/codehopper
+
+# GitHub
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+GITHUB_ADMIN_TOKEN=your_github_admin_token
+
+# AI
+GEMINI_API_KEY=your_gemini_api_key
+
+# Inngest
+INNGEST_EVENT_KEY=local
+INNGEST_SIGNING_KEY=local
+```
+### 4️⃣ Setup Database
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+### 5️⃣ Run Inngest Dev Server
+In a separate terminal:
+```bash
+npx inngest dev
+This starts:
+Inngest event receiver
+Background job processor
+Local Inngest dashboard
+```
+
+### 6️⃣ Expose Webhooks using ngrok
+GitHub requires a public HTTPS URL for webhooks.
+```bash
+ngrok http 3000
+Copy the HTTPS URL and update: 
+NEXT_PUBLIC_APP_BASE_URL=https://your-ngrok-url.ngrok.io
+```
+
+### 7️⃣ Start the Application
+```bash
+npm run dev
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
